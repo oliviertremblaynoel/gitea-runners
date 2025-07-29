@@ -1,0 +1,25 @@
+on:
+  push:
+    branches: [ "main" ]
+  schedule:
+    - cron: '19 19 19 * *'
+  workflow_dispatch:
+
+jobs:
+  build-push-ansible-image:
+    uses: oliviertremblaynoel/gha-pipelines/.github/workflows/ci.yml@main
+    secrets:
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+    with:
+      PROJECT_NAME: gitea-runner-ansible
+      FOLDER: gitea-runner-ansible
+
+  build-push-linter-image:
+    uses: oliviertremblaynoel/gha-pipelines/.github/workflows/ci.yml@main
+    secrets:
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+    with:
+      PROJECT_NAME: gitea-runner-linter
+      FOLDER: gitea-runner-linter
